@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Says</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Simons Says</h1>
+        <form id="pjform">
+            <input type="text" id="pjname" placeholder="Ingresa tu Nombre" required>
+            <button type="submit">Play</button>
+        </form>
+        <div id="gamearea">
+            <div class="circle-container">
+                <button id="red" class="btn quarter top-left"></button>
+                <button id="green" class="btn quarter top-right"></button>
+                <button id="blue" class="btn quarter bottom-left"></button>
+                <button id="yellow" class="btn quarter bottom-right"></button>
+            </div>
+            <p>Ronda: <span id="ronda">0</span></p>
+            <p>Puntaje: <span id="score">0</span></p>
+            <button id="restart">Reiniciar</button>
+        </div>
+        <div id="podio">
+            <h2>Podio</h2>
+            <table id="score-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Puntuacion</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
