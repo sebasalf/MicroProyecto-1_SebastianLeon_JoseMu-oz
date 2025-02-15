@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f0f0f0;
+    background-color: #1b1919;
     margin: 0;
     padding: 0;
 }
@@ -10,16 +10,22 @@ body {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #000000;
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 h1 {
     font-size: 36px;
-    color: #2c3e50;
+    color: #edf6ff;
     margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 2px 2px 4px rgba(228, 222, 222, 0.1);
+}
+
+h2 {
+    
+    color: #edf6ff;
+    text-shadow: 2px 2px 4px rgba(228, 222, 222, 0.1);
 }
 
 .circle-container {
@@ -29,7 +35,7 @@ h1 {
     margin: 20px auto;
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 16px rgba(12, 12, 12, 0.774);
     background-color: #070a0e;
 }
 
@@ -114,9 +120,9 @@ h1 {
     background-color: #3333ff;
 }
 
-#leaderboard {
+#podio {
     margin-top: 20px;
-    background-color: #f9f9f9;
+    background-color: #000000;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -129,7 +135,8 @@ table {
 
 th, td {
     padding: 10px;
-    border: 1px solid #ddd;
+    color: #edf6ff;
+    border: 1px solid #ffffff;
     text-align: center;
 }
 
@@ -170,6 +177,10 @@ tr:nth-child(even) {
     font-size: 16px;
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+p{
+    color: white;
 }
 
 #restart:hover {
