@@ -118,3 +118,43 @@ document.getElementById("pjform").addEventListener("submit", (event) => {
 });
 
 document.getElementById("restart").addEventListener("click", reiniciarJuego);
+
+
+// Función para guardar el puntaje
+function guardarPuntaje(nombreJugador, puntaje) {
+    const puntajesGuardados = JSON.parse(localStorage.getItem("puntajes")) || [];
+    const jugadorExistente = puntajesGuardados.find(jugador => jugador.nombre === nombreJugador);
+
+    if (jugadorExistente) {
+        if (puntaje > jugadorExistente.puntaje) {
+            jugadorExistente.puntaje = puntaje;
+        }
+    } else {
+        puntajesGuardados.push({ nombre: nombreJugador, puntaje });
+    }
+
+    localStorage.setItem("puntajes", JSON.stringify(puntajesGuardados));
+}
+
+// Función para mostrar la tabla de líderes
+function mostrarTablaLideres() {
+    const puntajesGuardados = JSON.parse(localStorage.getItem("puntajes")) || [];
+    puntajesGuardados.sort((a, b) => b.puntaje - a.puntaje);
+
+    const tabla = document.getElementById("score-table").getElementsByTagName("tbody")[0];
+    tabla.innerHTML = "";
+
+    puntajesGuardados.forEach((jugador, index) => {
+        const fila = tabla.insertRow();
+        const celdaNombre = fila.insertCell(0);
+        const celdaPuntaje = fila.insertCell(1);
+
+        celdaNombre.textContent = jugador.nombre;
+        celdaPuntaje.textContent = jugador.puntaje;
+    });
+}
+
+// Mostrar la tabla de líderes al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+    mostrarTablaLideres();
+});
