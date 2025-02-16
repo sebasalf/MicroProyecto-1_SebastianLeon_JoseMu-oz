@@ -42,7 +42,7 @@ function iluminarBoton(color) {
     const boton = document.getElementById(color);
     boton.style.opacity = 1; // Cambiar la opacidad para simular el "brillo"
     setTimeout(() => {
-        boton.style.opacity = 0.7; // Restaurar la opacidad original
+        boton.style.opacity = 0.4; // Restaurar la opacidad original
     }, 500); // El botón permanece iluminado por 0.5 segundos
 }
 function manejarClick(color) {
