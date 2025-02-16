@@ -1,6 +1,8 @@
 // Colores disponibles (coinciden con los IDs de los botones)
 const colores = ["red", "green", "blue", "yellow"];
 
+const tabla = document.getElementById("score-table").getElementsByTagName("tbody")[0];
+
 // Secuencia generada por el juego
 let secuenciaJuego = [];
 
@@ -12,6 +14,9 @@ let ronda = 0;
 
 // Puntaje del jugador
 let puntaje = 0;
+
+
+let puntajesGuardados = JSON.parse(localStorage.getItem("puntajes")) || [];
 
 // Estado del juego (si está esperando la interacción del jugador)
 let esperandoJugador = false;
@@ -74,13 +79,14 @@ function iniciarJuego() {
     secuenciaJuego = [];
     secuenciaJugador = [];
     ronda = 0;
-    puntaje = 0;
+    puntaje = -1;
     actualizarInterfaz();
     siguienteRonda();
 }
 
 function siguienteRonda() {
     ronda++;
+    puntaje++;
     secuenciaJugador = []; // Reiniciar la secuencia del jugador
     agregarColorASecuencia(); // Agregar un nuevo color a la secuencia del juego
     actualizarInterfaz();
@@ -91,6 +97,9 @@ function siguienteRonda() {
 
 function terminarJuego() {
     alert(`¡Juego terminado! Tu puntaje fue: ${puntaje}`);
+    const nombreJugador = document.getElementById("pjname").value;
+    guardarPuntaje(nombreJugador,puntaje);
+    mostrarTablaLideres();
     reiniciarJuego();
 }
 
@@ -98,7 +107,7 @@ function reiniciarJuego() {
     secuenciaJuego = [];
     secuenciaJugador = [];
     ronda = 0;
-    puntaje = 0;
+    puntaje = -1;
     actualizarInterfaz();
 }
 
@@ -122,35 +131,22 @@ document.getElementById("restart").addEventListener("click", reiniciarJuego);
 
 // Función para guardar el puntaje
 function guardarPuntaje(nombreJugador, puntaje) {
-    const puntajesGuardados = JSON.parse(localStorage.getItem("puntajes")) || [];
-    const jugadorExistente = puntajesGuardados.find(jugador => jugador.nombre === nombreJugador);
-
-    if (jugadorExistente) {
-        if (puntaje > jugadorExistente.puntaje) {
-            jugadorExistente.puntaje = puntaje;
-        }
-    } else {
-        puntajesGuardados.push({ nombre: nombreJugador, puntaje });
-    }
-
-    localStorage.setItem("puntajes", JSON.stringify(puntajesGuardados));
+    puntajesGuardados.push({ nombreJugador, puntaje }); // Guardar nombre y puntaje
+    puntajesGuardados.sort((a, b) => b.puntaje - a.puntaje); // Ordenar de mayor a menor
+    puntajesGuardados = puntajesGuardados.slice(0, 5); // Mantener solo los 5 mejores puntajes
+    localStorage.setItem("puntajes", JSON.stringify(puntajesGuardados)); // Guardar en localStorage
 }
 
 // Función para mostrar la tabla de líderes
 function mostrarTablaLideres() {
-    const puntajesGuardados = JSON.parse(localStorage.getItem("puntajes")) || [];
-    puntajesGuardados.sort((a, b) => b.puntaje - a.puntaje);
-
-    const tabla = document.getElementById("score-table").getElementsByTagName("tbody")[0];
-    tabla.innerHTML = "";
-
-    puntajesGuardados.forEach((jugador, index) => {
+    tabla.innerHTML = ""; // Limpiar la tabla
+    puntajesGuardados.forEach((jugador) => {
         const fila = tabla.insertRow();
         const celdaNombre = fila.insertCell(0);
         const celdaPuntaje = fila.insertCell(1);
 
-        celdaNombre.textContent = jugador.nombre;
-        celdaPuntaje.textContent = jugador.puntaje;
+        celdaNombre.textContent = jugador.nombreJugador; // Mostrar el nombre
+        celdaPuntaje.textContent = jugador.puntaje; // Mostrar el puntaje
     });
 }
 
